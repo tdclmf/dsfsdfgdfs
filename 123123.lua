@@ -40,18 +40,18 @@ else
                     [2] = CFrame.new(-10, 13, -132, -1, 0, -8, 0, 1, 0, 8, 0, -1)
                 }
                 game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SpawnNewTower"):InvokeServer(unpack(args))
-
-                if player.Character.PlayerGui.GameGui.Info.Message.TEXT == "VICTORY" then
-                    local url = "https://discord.com/api/webhooks/1337737827810803773/okBl7WCf6i6BfYRWjBFfQOmaGAaaHXxp2tj37Bj4yi9hx0kvP9AQ91hyw6Xti3tm4YWa"
-                    local data = {["content"] = "@everyone 1 лвл пройден йоу"}
-                    local newdata = game:GetService("HttpService"):JSONEncode(data)
-                    local headers = {["content-type"] = "application/json"}
-                    local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
-                    request(abcdef)
-                end
-
-                game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SpawnNewTower"):InvokeServer(unpack(args))
             end
+
+            -- Проверка на "VICTORY" теперь в цикле while
+            if player.PlayerGui.GameGui.Info.Message.TEXT == "VICTORY" then
+                local url = "https://discord.com/api/webhooks/1337737827810803773/okBl7WCf6i6BfYRWjBFfQOmaGAaaHXxp2tj37Bj4yi9hx0kvP9AQ91hyw6Xti3tm4YWa"
+                local data = {["content"] = "@everyone 1 лвл пройден йоу"}
+                local newdata = game:GetService("HttpService"):JSONEncode(data)
+                local headers = {["content-type"] = "application/json"}
+                local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+                request(abcdef)
+            end
+
             wait(1)
         end
     end)
