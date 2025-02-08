@@ -5,7 +5,7 @@ local PASTE_KEY = "eECbNjm6" -- Ключ вашего паста (если он 
 local PASTE_URL = "https://pastebin.com/api/post" -- URL для создания паста
 local GET_PASTE_URL = "https://pastebin.com/api/raw_post" -- URL для получения паста
 local headers = {
-    ["content-type"] = "application/json"
+    ["Content-Type"] = "application/json"
 }
 
     if not success then
@@ -25,20 +25,18 @@ local function getData()
         Body = HttpService:JSONEncode({ api_dev_key = API_KEY, api_user_name = "Fsdfdgesfasdf", api_user_password = "1237654312ABC" })
     })
 
-    -- Проверка статуса ответа
     if not response or response.StatusCode ~= 200 then
         warn("Ошибка при получении данных: " .. (response and response.Body or "неизвестная ошибка"))
-        return nil
+        return {}
     end
 
-    -- Попытка декодировать JSON
     local success, data = pcall(function()
         return HttpService:JSONDecode(response.Body)
     end)
 
     if not success then
         warn("Ошибка при парсинге JSON: " .. data)
-        return nil
+        return {}
     end
 
     return data
@@ -62,7 +60,7 @@ end
 
 -- Функция для добавления или обновления уровня игрока
 local function updatePlayerLevel(playerName)
-    local data = getData() or {}
+    local data = getData()
 
     if not data[playerName] then
         data[playerName] = 1 -- Добавляем игрока с уровнем 1
@@ -73,6 +71,11 @@ local function updatePlayerLevel(playerName)
     updateData(data)
 end
 
+-- Основной блок кода
 local player = game.Players.LocalPlayer
-local characterName = player.Name
-updatePlayerLevel(characterName)
+if player then
+    local characterName = player.Name
+    updatePlayerLevel(characterName)
+else
+    warn("Игрок не найден.")
+end
