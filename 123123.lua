@@ -7,7 +7,6 @@ local GET_PASTE_URL = "https://pastebin.com/api/raw_post" -- URL для полу
 local headers = {
     ["Content-Type"] = "application/json"
 }
-
     if not success then
         warn("Ошибка при выполнении запроса: " .. response)
         return nil
