@@ -1,80 +1,62 @@
-local HttpService = game:GetService("HttpService")
-
-local API_KEY = "8to4l4iGt3GtF_4fWojjOC4RJTXfXH1k" -- Ваш ключ API
-local PASTE_KEY = "eECbNjm6" -- Ключ вашего паста (если он уже создан)
-local PASTE_URL = "https://pastebin.com/api/post" -- URL для создания паста
-local GET_PASTE_URL = "https://pastebin.com/api/raw_post" -- URL для получения паста
-local headers = {
-    ["Content-Type"] = "application/json"
-}
-    if not success then
-        warn("Ошибка при выполнении запроса: " .. response)
-        return nil
-    end
-
-    return response
-end
-
--- Функция для получения данных из Pastebin
-local function getData()
-    local response = request({
-        Url = GET_PASTE_URL,
-        Method = "POST",
-        Headers = headers,
-        Body = HttpService:JSONEncode({ api_dev_key = API_KEY, api_user_name = "Fsdfdgesfasdf", api_user_password = "1237654312ABC" })
-    })
-
-    if not response or response.StatusCode ~= 200 then
-        warn("Ошибка при получении данных: " .. (response and response.Body or "неизвестная ошибка"))
-        return {}
-    end
-
-    local success, data = pcall(function()
-        return HttpService:JSONDecode(response.Body)
-    end)
-
-    if not success then
-        warn("Ошибка при парсинге JSON: " .. data)
-        return {}
-    end
-
-    return data
-end
-
--- Функция для обновления данных на Pastebin
-local function updateData(data)
-    local response = request({
-        Url = PASTE_URL,
-        Method = "POST",
-        Headers = headers,
-        Body = HttpService:JSONEncode({ api_dev_key = API_KEY, api_option = "edit", api_paste_key = PASTE_KEY, api_paste_data = HttpService:JSONEncode(data) })
-    })
-
-    if not response or response.StatusCode ~= 200 then
-        warn("Ошибка при обновлении данных: " .. (response and response.Body or "неизвестная ошибка"))
-    end
-
-    return response and response.Body or nil
-end
-
--- Функция для добавления или обновления уровня игрока
-local function updatePlayerLevel(playerName)
-    local data = getData()
-
-    if not data[playerName] then
-        data[playerName] = 1 -- Добавляем игрока с уровнем 1
-    else
-        data[playerName] = data[playerName] + 1 -- Увеличиваем уровень на 1
-    end
-
-    updateData(data)
-end
-
--- Основной блок кода
 local player = game.Players.LocalPlayer
-if player then
-    local characterName = player.Name
-    updatePlayerLevel(characterName)
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+if game.PlaceId == 17720162456 then
+    player.Character.HumanoidRootPart.CFrame = CFrame.new(-341.0579833984375, 16.933761596679688, 3006.642578125)
+    humanoid:MoveTo(Vector3.new(-319.4451599121094, 16.70022201538086, 2987.232421875))
+wait(5)
+local args = {
+    [1] = workspace:WaitForChild("Teleporters"):WaitForChild("Teleporter2"),
+    [2] = 1,
+    [3] = "Normal", 
+    [4] = false
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("Teleporters"):WaitForChild("ChooseStage"):FireServer(unpack(args))
+
 else
-    warn("Игрок не найден.")
+    local success, err = pcall(function()
+        local realTimer = game:GetService("Workspace").Info.Time.RealTimer
+  
+        while true do
+            local currentValue = realTimer.Value
+            print("Текущее значение RealTimer:", currentValue)
+      if currentValue == 30 then
+game:GetService("ReplicatedStorage"):WaitForChild("Remotes"):WaitForChild("AutoSkip"):FireServer()
+end
+            if currentValue == 40 then
+                local args = {
+    [1] = game:GetService("Players").LocalPlayer.Equipped5.Value,
+    [2] = CFrame.new(-10, 13, -132, -1, 0, -8, 0, 1, 0, 8, 0, -1)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SpawnNewTower"):InvokeServer(unpack(args))
+
+            if currentValue == 270 then
+                local args = {
+    [1] = game:GetService("Players").LocalPlayer.Equipped2.Value,
+    [2] = CFrame.new(-10, 13, -132, -1, 0, -8, 0, 1, 0, 8, 0, -1)
+}
+
+game:GetService("ReplicatedStorage"):WaitForChild("Functions"):WaitForChild("SpawnNewTower"):InvokeServer(unpack(args))
+if  player.Character.PlayerGui.GameGui.Info.Message.TEXT == "VICTORY" then
+local url =
+   "https://discord.com/api/webhooks/1337737827810803773/okBl7WCf6i6BfYRWjBFfQOmaGAaaHXxp2tj37Bj4yi9hx0kvP9AQ91hyw6Xti3tm4YWa"
+local data = {
+   ["content"] = "@everyone 1 лвл пройден йоу",
+}
+local newdata = game:GetService("HttpService"):JSONEncode(data)
+
+local headers = {
+   ["content-type"] = "application/json"
+}
+local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
+request(abcdef)
+end
+            end
+
+            wait(1)
+        end
+    end)
 end
