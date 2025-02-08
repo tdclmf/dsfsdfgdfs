@@ -50,6 +50,7 @@ else
                 local headers = {["content-type"] = "application/json"}
                 local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
                 request(abcdef)
+                break
             end
 
             wait(1)
