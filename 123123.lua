@@ -43,7 +43,7 @@ else
             end
 
             -- Проверка на "VICTORY" теперь в цикле while
-            if player.PlayerGui.GameGui.Info.Message.TEXT == "VICTORY" then
+            if player.PlayerGui.GameGui.Info.Message.Text == "VICTORY" then
                 local url = "https://discord.com/api/webhooks/1337737827810803773/okBl7WCf6i6BfYRWjBFfQOmaGAaaHXxp2tj37Bj4yi9hx0kvP9AQ91hyw6Xti3tm4YWa"
                 local data = {["content"] = "@everyone 1 лвл пройден йоу"}
                 local newdata = game:GetService("HttpService"):JSONEncode(data)
