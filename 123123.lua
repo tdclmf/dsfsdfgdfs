@@ -167,7 +167,7 @@ else
                     local abcdef = {Url = url, Body = newdata, Method = "POST", Headers = headers}
                     request(abcdef)
                 else
-                    local url = "https://discord.com/api/webhooks/1340016275451150346/8D17e1lcb3KBlTyRMofVhBS4A6sVksqzp0XGSvqMuhUsLV9c7r_gKObxClnd5PnTuV6j"
+                    local url = "https://discord.com/api/webhooks/1343258734272708650/upZ47vT-KWPhbJWOA8gfqMttPfjrv2eydwGz0x5pacqWhbed6dX3n-CIYtuQpVU1OlIU"
                     local data = {["content"] = "@everyone МЕГУМИ! 15 Hellmode пройден за время: ".. game:GetService("Workspace").Info.Time.Timer.Value .. "\n Account: " .. character.Name}
                     local newdata = game:GetService("HttpService"):JSONEncode(data)
                     local headers = {["content-type"] = "application/json"}
